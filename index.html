@@ -15,18 +15,30 @@
     <h2>Funktionen</h2>
 
     <button id="taskId">Übersicht über alle Aufgaben</button> 
-    <button id="addNewExercise">Neue Aufgabe hinzufügen</button>
+<form id="submit"> 
+    <label for="addNewExercise">Neue Aufgabe hinzufügen</label>
+    <input type="text" name="add" id="addNewExercise"/> 
+    <button type="submit" for="addNewExercise">Hinzufügen</button>
+</form>  
     <button id="updateExercise">Aufgabe bearbeiten und speichern</button>
-    <button id="deleteExercise">Aufgabe löschen</button>
-    <thead>
-        <tr>
-          <th>ID</th>
-          <th>Completed</th>
-          <th>Title</th> 
-        </tr>
-      </thead>
-      <tbody id="display">
+<!--
+<form id="deleteId"> 
+    <label for="deleteExercise">Eine Aufgabe löschen</label>   
+    <input type="text" name="delete" id="deleteExercise"/> 
+    <button type="submit" for="deleteExercise">Löschen</button>
+</form>
+-->
+    <br/> 
+    <table>
+      <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th> 
+            <th>Completed</th> 
+          </tr>
+        </thead>
+      <tbody>
       </tbody>
     </table>
 </body>
-</html>
+</html> 
