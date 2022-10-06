@@ -17,16 +17,30 @@ function renderTasks(tasks){
         const tableRow = document.createElement("tr")  
         const deleteButton = document.createElement("button")
         deleteButton.innerText = "Löschen"
+
+        const updateButton = document.createElement("input")
+        updateButton.setAttribute(`type`, `text`)
+        updateButton.placeholder = "bearbeiten"
+
+        const submitUpdate = document.createElement("button")
+        submitUpdate.setAttribute(`type`, `submit`)
+        submitUpdate.setAttribute(`value`, `Bearbeitung übernehmen`)
+        submitUpdate.setAttribute(`for`, `updateButton`)  
         
         deleteButton.addEventListener("click", () => {
             deleteTask(task.id); 
         })
-
+        
+        submitUpdate.addEventListener("click", () => {
+            updateTask(); 
+        })
+        
 
         tableRow.append(createCell(task.id), createCell(task.title), createCell(task.completed))
         tableBody.appendChild(tableRow)
         tableRow.appendChild(deleteButton)  
-        
+        tableRow.appendChild(updateButton)
+        tableRow.appendChild(submitUpdate)
         }
         )}
 
@@ -41,7 +55,7 @@ function indextasks(){
 
 function createTask() {
     const addNewExercise = document.getElementById("addNewExercise");
-    const task = {title: addNewExercise.value} 
+    const task = {title: addNewExercise.value}
     fetch(`http://localhost:3000/tasks`, {
     method: 'POST',
     headers: {
@@ -53,9 +67,14 @@ function createTask() {
     .then((task) => {
     console.log(task);
     })
-     indextasks(); 
+     //indextasks(); 
      //alert(`${task} wurde hinzugefügt.`)
-     indextasks.id
+     //indextasks.id
+     /*
+     if (task === ""){ 
+        alert("Bitte etwas eingben.") 
+    } 
+    */ 
 }
 
 function deleteTask(id) {
@@ -64,6 +83,21 @@ function deleteTask(id) {
     })
     location.reload(); 
 }
+
+function updateTask(id){
+    const updateTaskData = document.getElementsByTagName("input") 
+    fetch(`http://localhost:3000/tasks/${id}`,{
+    method: 'PUT',
+    headers: {
+    'Content-Type':'application/json'
+    },
+    body: JSON.stringify(updateTaskData)
+    })
+    .then((response) => response.json())
+    .then((updateTaskData) => {
+    console.log(updateTaskData);
+    })
+    }
 
 document.addEventListener("DOMContentLoaded", () => { 
 
@@ -95,9 +129,5 @@ document.addEventListener("DOMContentLoaded", () => {
     else {console.log()} 
     }) 
     */
-
-    updateExercise.addEventListener("click", () => {
-        alert("updaten")
-    });
 
 });
