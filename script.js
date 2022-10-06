@@ -74,14 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const updateExercise = document.getElementById("updateExercise")
 
-    taskId.addEventListener("click", () => {
+    //taskId.addEventListener("click", () => {
         /*
         while(tableId.rows.length>0) 
             {tableId.deleteRow(0);}
         */
         indextasks();  
         
-    })
+    //})
 
     submit.addEventListener("submit", () => {
         createTask(); 
