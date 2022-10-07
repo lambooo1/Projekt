@@ -3,13 +3,6 @@ const createCell = (cellText) => {
     cell.innerText = cellText;
     return cell;
   }
-/*
-const createButton = () => {
-    const cellButton = document.createElement("button");
-    cell.innerText = "Löschen"
-    return cellButton
-}
-*/
 
 function renderTasks(tasks){
     const tableBody = document.querySelector("tbody"); 
@@ -17,24 +10,11 @@ function renderTasks(tasks){
         const tableRow = document.createElement("tr")  
         const deleteButton = document.createElement("button")
         deleteButton.innerText = "Löschen"
-        
-        /*
-        const updateButton = document.createElement("input")
-        updateButton.setAttribute(`type`, `text`)
-        //updateButton.setAttribute(`id`, `updateButton`) 
-        updateButton.placeholder = "bearbeiten"
-        updateButton.id = "updateButton"
-        */
+        deleteButton.className = "deleteButton"
+ 
         const updateButton = document.createElement("button") 
         updateButton.innerText = "verändern" 
-
-        /*
-        const submitUpdate = document.createElement("button")
-        submitUpdate.setAttribute(`type`, `submit`)
-        submitUpdate.innerText = "Bearbeitung übernehmen"
-        //submitUpdate.setAttribute(`value`, `Bearbeitung übernehmen`)
-        submitUpdate.setAttribute(`for`, `updateButton`)  
-        */
+        updateButton.className = "updatebutton"
 
         deleteButton.addEventListener("click", () => {
             deleteTask(task.id);  
@@ -50,12 +30,12 @@ function renderTasks(tasks){
         tableBody.appendChild(tableRow)
         tableRow.appendChild(deleteButton)  
         tableRow.appendChild(updateButton)
-        //tableRow.appendChild(submitUpdate)
         }
         )}
 
 function indextasks(){
-    fetch(`http://localhost:3000/tasks`) 
+    fetch(`http://127.0.0.1:3000/auth/cookie/tasks`, {
+    credentials:"include"}) 
     .then((response) => {
         return response.json()})
 
@@ -66,8 +46,9 @@ function indextasks(){
 function createTask() {
     const addNewExercise = document.getElementById("addNewExercise");
     const task = {title: addNewExercise.value}
-    fetch(`http://localhost:3000/tasks`, {
+    fetch(`http://127.0.0.1:3000/auth/cookie/tasks`, {
     method: 'POST',
+    credentials:"include",
     headers: {
    'Content-Type':'application/json'
     },
@@ -77,19 +58,12 @@ function createTask() {
     .then((task) => {
     console.log(task);
     })
-     //indextasks(); 
-     //alert(`${task} wurde hinzugefügt.`)
-     //indextasks.id
-     /*
-     if (task === ""){ 
-        alert("Bitte etwas eingben.") 
-    } 
-    */ 
 }
 
 function deleteTask(id) {
-    fetch(`http://localhost:3000/task/${id}`,{
-    method: 'DELETE'
+    fetch(`http://127.0.0.1:3000/auth/cookie/task/${id}`,{
+    method: 'DELETE',
+    credentials:"include"
     })
     location.reload(); 
 }
@@ -97,8 +71,9 @@ function deleteTask(id) {
 function updateTask(id){
     const updateTaskData = prompt("Task verändern") 
     //const title = {title: updateTaskData.value} 
-    fetch(`http://localhost:3000/tasks`,{ 
+    fetch(`http://127.0.0.1:3000/auth/cookie/tasks`,{ 
     method: 'PUT', 
+    credentials:"include",
     headers: {
     'Content-Type':'application/json'
     },
