@@ -17,30 +17,40 @@ function renderTasks(tasks){
         const tableRow = document.createElement("tr")  
         const deleteButton = document.createElement("button")
         deleteButton.innerText = "Löschen"
-
+        
+        /*
         const updateButton = document.createElement("input")
         updateButton.setAttribute(`type`, `text`)
+        //updateButton.setAttribute(`id`, `updateButton`) 
         updateButton.placeholder = "bearbeiten"
+        updateButton.id = "updateButton"
+        */
+        const updateButton = document.createElement("button") 
+        updateButton.innerText = "verändern" 
 
+        /*
         const submitUpdate = document.createElement("button")
         submitUpdate.setAttribute(`type`, `submit`)
-        submitUpdate.setAttribute(`value`, `Bearbeitung übernehmen`)
+        submitUpdate.innerText = "Bearbeitung übernehmen"
+        //submitUpdate.setAttribute(`value`, `Bearbeitung übernehmen`)
         submitUpdate.setAttribute(`for`, `updateButton`)  
-        
-        deleteButton.addEventListener("click", () => {
-            deleteTask(task.id); 
-        })
-        
-        submitUpdate.addEventListener("click", () => {
-            updateTask(); 
-        })
-        
+        */
 
+        deleteButton.addEventListener("click", () => {
+            deleteTask(task.id);  
+        })
+        
+        updateButton.addEventListener("click", () => {
+            //event.preventDefault();
+            updateTask(task.id); 
+             
+        })
+        
         tableRow.append(createCell(task.id), createCell(task.title), createCell(task.completed))
         tableBody.appendChild(tableRow)
         tableRow.appendChild(deleteButton)  
         tableRow.appendChild(updateButton)
-        tableRow.appendChild(submitUpdate)
+        //tableRow.appendChild(submitUpdate)
         }
         )}
 
@@ -85,49 +95,33 @@ function deleteTask(id) {
 }
 
 function updateTask(id){
-    const updateTaskData = document.getElementsByTagName("input") 
-    fetch(`http://localhost:3000/tasks/${id}`,{
-    method: 'PUT',
+    const updateTaskData = prompt("Task verändern") 
+    //const title = {title: updateTaskData.value} 
+    fetch(`http://localhost:3000/tasks`,{ 
+    method: 'PUT', 
     headers: {
     'Content-Type':'application/json'
     },
-    body: JSON.stringify(updateTaskData)
+    body: JSON.stringify({id: id, title: updateTaskData})  
     })
-    .then((response) => response.json())
-    .then((updateTaskData) => {
-    console.log(updateTaskData);
-    })
+    location.reload();
     }
 
 document.addEventListener("DOMContentLoaded", () => { 
 
-
-
     const submit = document.getElementById("submit")
     const taskId = document.getElementById("taskId")
 
-    const updateExercise = document.getElementById("updateExercise")
 
-    //taskId.addEventListener("click", () => {
+    // taskId.addEventListener("click", () => {
         /*
         while(tableId.rows.length>0) 
             {tableId.deleteRow(0);}
         */
-        indextasks();  
-        
-    //})
+        indextasks(); 
+    // })
 
     submit.addEventListener("submit", () => {
         createTask(); 
     }); 
-    
-    /*
-    const deleteButton2 = document.getElementsByTagName("button")
-    deleteButton2.addEventListener("click", () => {    
-    if (deleteButton2.innerText == "Löschen"){
-        deleteTask(task.id)} 
-    else {console.log()} 
-    }) 
-    */
-
 });
